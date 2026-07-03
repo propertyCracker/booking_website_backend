@@ -3,7 +3,7 @@ from .models import Room, RoomImage
 
 
 class RoomImageSerializer(serializers.ModelSerializer):
-    room = serializers.ModelSerializer(
+    room = serializers.HyperlinkedRelatedField(
         view_name = 'room-detail',
         queryset = Room.objects.all())
     class Meta:
@@ -11,7 +11,7 @@ class RoomImageSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class RoomSerializer(serializers.ModelSerializer):
+class RoomSerializer(serializers.HyperlinkedModelSerializer):
     images = RoomImageSerializer(many=True, read_only=True)
     class Meta:
         model = Room
